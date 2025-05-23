@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUREX - One Engine. All Cures.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --electric-blue: #00d4ff;
+            --emerald-green: #00ff88;
+            --deep-black: #0a0a0a;
+            --pure-white: #ffffff;
+            --dark-gray: #1a1a1a;
+            --light-gray: #333333;
+            --gradient-1: linear-gradient(135deg, var(--electric-blue), var(--emerald-green));
+            --gradient-2: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--deep-black);
+            color: var(--pure-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            border-bottom: 1px solid var(--electric-blue);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--pure-white);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.05) 50%, transparent 100%);
+        }
+
+        .dna-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.5)); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gradient-1);
+            color: var(--deep-black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: var(--gradient-2);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--electric-blue);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Orbitron', monospace;
+            color: var(--emerald-green);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 400px;
+            background: var(--gradient-2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .brain-animation {
+            width: 200px;
+            height: 200px;
+            border: 3px solid var(--electric-blue);
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .brain-animation::before,
+        .brain-animation::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--emerald-green);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            animation: pulse 2s infinite 0.5s;
+        }
+
+        .brain-animation::after {
+            animation-delay: 1s;
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        /* Technology Section */
+        .technology {
+            padding: 5rem 0;
+            background: var(--gradient-2);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            background: rgba(26, 26, 26, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--emerald-green);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--electric-blue);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(26, 26, 26, 0.8);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--electric-blue);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(51, 51, 51, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            color: var(--pure-white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-1);
+            color: var(--deep-black);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--electric-blue);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--pure-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--emerald-green);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-black);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Floating particles animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--deep-black);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Section visibility animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">CUREX</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="dna-animation"></div>
+        <div class="hero-content fade-in">
+            <h1>CUREX: One Engine. All Cures.</h1>
+            <p>The World's First AI-Powered Universal Disease Intelligence Platform</p>
+            <a href="#contact" class="cta-button">Request Demo</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="fade-in">Revolutionary Healthcare Intelligence</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI-Powered Symptom Analyzer</h3>
+                    <p>Advanced machine learning algorithms analyze symptoms with unprecedented accuracy, providing instant diagnostic insights.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧬</div>
+                    <h3>Genomic-Based Precision Medicine</h3>
+                    <p>Personalized treatment recommendations based on individual genetic profiles and biomarkers.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-Time Disease Prediction</h3>
+                    <p>Predictive analytics that identify disease patterns before symptoms manifest, enabling preventive care.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💊</div>
+                    <h3>Drug Discovery & Repurposing</h3>
+                    <p>Accelerate pharmaceutical development through AI-driven compound analysis and therapeutic optimization.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Health Monitoring</h3>
+                    <p>Real-time surveillance of global health trends and pandemic early warning systems.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👨‍⚕️</div>
+                    <h3>Integrated Patient-Doctor AI</h3>
+                    <p>Seamless collaboration between AI insights and clinical expertise for optimal patient outcomes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h2>Revolutionizing Healthcare Through AI</h2>
+                    <p>CUREX represents the convergence of cutting-edge artificial intelligence, advanced genomics, and global health data to create the world's most comprehensive disease intelligence platform.</p>
+                    <p>Founded by a team of world-renowned AI researchers, medical professionals, and genomics experts, we're on a mission to democratize access to precision medicine and accelerate the discovery of cures for humanity's greatest health challenges.</p>
+                    <p>Our platform processes millions of data points from clinical research, genetic databases, and real-world patient outcomes to provide unprecedented insights into disease prevention, diagnosis, and treatment.</p>
+                </div>
+                <div class="about-visual fade-in">
+                    <div class="brain-animation"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="technology">
+        <div class="container">
+            <h2 class="fade-in">Core Technologies</h2>
+            <div class="tech-grid">
+                <div class="tech-item fade-in">
+                    <h3>Neural Network Architecture</h3>
+                    <p>Advanced deep learning models trained on the world's largest medical datasets, enabling pattern recognition beyond human capability.</p>
+                </div>
+                <div class="tech-item fade-in">
+                    <h3>Genomic Mapping Interface</h3>
+                    <p>Proprietary algorithms that translate genetic variations into actionable medical insights with 99.7% accuracy.</p>
+                </div>
+                <div class="tech-item fade-in">
+                    <h3>Quantum-Enhanced Processing</h3>
+                    <p>Leveraging quantum computing principles for exponentially faster drug interaction modeling and molecular simulation.</p>
+                </div>
+                <div class="tech-item fade-in">
+                    <h3>Federated Learning Network</h3>
+                    <p>Secure, privacy-preserving AI training across global healthcare institutions without compromising patient data.</p>
+                </div>
+                <div class="tech-item fade-in">
+                    <h3>Real-Time Data Integration</h3>
+                    <p>Continuous integration of global health data streams, clinical trials, and research publications for up-to-the-minute insights.</p>
+                </div>
+                <div class="tech-item fade-in">
+                    <h3>Ethical AI Framework</h3>
+                    <p>Built-in bias detection, explainable AI outputs, and strict adherence to medical ethics and patient privacy standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="fade-in" style="text-align: center; margin-bottom: 3rem; font-family: 'Orbitron', monospace;">Get Started with CUREX</h2>
+            <form class="contact-form fade-in">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <input type="text" id="organization" name="organization">
+                </div>
+                <div class="form-group">
+                    <label for="inquiry">Inquiry Type</label>
+                    <select id="inquiry" name="inquiry" required>
+                        <option value="">Select an option</option>
+                        <option value="demo">Request Demo</option>
+                        <option value="partnership">Partnership Inquiry</option>
+                        <option value="research">Research Collaboration</option>
+                        <option value="investment">Investment Opportunity</option>
+                        <option value="careers">Career Opportunities</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us about your specific needs or interests..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#demo">Try Demo</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#investors">Investors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#whitepapers">Whitepapers</a></li>
+                        <li><a href="#support">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#compliance">HIPAA Compliance</a></li>
+                        <li><a href="#ethics">AI Ethics</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" title="LinkedIn">💼</a>
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="Research Gate">🔬</a>
+                <a href="#" title="GitHub">💻</a>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.7;">&copy; 2025 CUREX. All rights reserved. | Advancing Global Health Through AI Innovation</p>
+        </div>
+    </footer>
+
+    <!-- Dark mode toggle -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                
+                // Random colors between electric blue and emerald green
+                const colors = ['#00d4ff', '#00ff88', 'rgba(0, 212, 255, 0.6)', 'rgba(0, 255, 136, 0.6)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            fadeInElements.forEach(el => observer.observe(el));
+            
+            createParticles();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.inquiry) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your interest in CUREX! We will contact you within 24 hours.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Dark mode toggle (visual effect only)
+        function toggleDarkMode() {
+            const body = document.body;
+            const toggleBtn = document.querySelector('.dark-mode-toggle');
+            
+            if (body.style.filter === 'invert(1) hue-rotate(180deg)') {
+                body.style.filter = '';
+                toggleBtn.textContent = '🌙';
+            } else {
+                body.style.filter = 'invert(1) hue-rotate(180deg)';
+                toggleBtn.textContent = '☀️';
+            }
+        }
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.width = '100%';
+            navLinks.style.background = 'rgba(10, 10, 10, 0.98)';
+            navLinks.style.padding = '1rem';
+            navLinks.style.borderTop = '1px solid var(--electric-blue)';
+            
+            // Animate hamburger menu
+            const spans = mobileMenu.querySelectorAll('span');
+            spans.forEach((span, index) => {
+                if (navLinks.style.display === 'flex') {
+                    if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    if (index === 1) span.style.opacity = '0';
+                    if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                } else {
+                    span.style.transform = '';
+                    span.style.opacity = '1';
+                }
+            });
+        });
+
+        // DNA/Helix animation in hero background
+        function createDNAHelix() {
+            const dnaContainer = document.querySelector('.dna-animation');
+            if (!dnaContainer) return;
+            
+            const helixSVG = `
+                <svg width="100%" height="100%" viewBox="0 0 400 800" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%);">
+                    <defs>
+                        <linearGradient id="dnaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.6" />
+                            <stop offset="100%" style="stop-color:#00ff88;stop-opacity:0.6" />
+                        </linearGradient>
+                    </defs>
+                    <g class="dna-helix">
+                        <path d="M100 0 Q200 100 100 200 Q0 300 100 400 Q200 500 100 600 Q0 700 100 800" 
+                              stroke="url(#dnaGradient)" stroke-width="3" fill="none" opacity="0.7">
+                            <animate attributeName="stroke-dasharray" values="0,1000;1000,0;0,1000" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M300 0 Q200 100 300 200 Q400 300 300 400 Q200 500 300 600 Q400 700 300 800" 
+                              stroke="url(#dnaGradient)" stroke-width="3" fill="none" opacity="0.7">
+                            <animate attributeName="stroke-dasharray" values="1000,0;0,1000;1000,0" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                        ${Array.from({length: 20}, (_, i) => {
+                            const y = i * 40;
+                            const x1 = 100 + Math.sin(i * 0.5) * 50;
+                            const x2 = 300 - Math.sin(i * 0.5) * 50;
+                            return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="url(#dnaGradient)" stroke-width="2" opacity="0.5">
+                                        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="${i * 0.1}s" repeatCount="indefinite"/>
+                                    </line>`;
+                        }).join('')}
+                    </g>
+                </svg>
+            `;
+            
+            dnaContainer.innerHTML = helixSVG;
+        }
+
+        // Enhanced particle effects
+        function enhanceParticles() {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach((particle, index) => {
+                // Add random pulsing effect
+                particle.style.animation += `, pulse-particle 3s infinite ${Math.random() * 3}s`;
+                
+                // Add interaction on hover
+                particle.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(3)';
+                    this.style.boxShadow = '0 0 20px currentColor';
+                });
+                
+                particle.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        }
+
+        // Add CSS for particle pulse animation
+        const additionalCSS = `
+            @keyframes pulse-particle {
+                0%, 100% { opacity: 0.3; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.5); }
+            }
+            
+            .particle {
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            
+            @media (max-width: 768px) {
+                .nav-links {
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    background: rgba(10, 10, 10, 0.98);
+                    padding: 1rem;
+                    border-top: 1px solid var(--electric-blue);
+                    display: none;
+                }
+                
+                .nav-links.active {
+                    display: flex;
+                }
+                
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = additionalCSS;
+        document.head.appendChild(style);
+
+        // Initialize all effects when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                createDNAHelix();
+                enhanceParticles();
+            }, 1000);
+        });
+
+        // Parallax scrolling effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const dnaAnimation = document.querySelector('.dna-animation');
+            
+            if (hero && dnaAnimation) {
+                const rate = scrolled * -0.5;
+                dnaAnimation.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.animation = 'slideInUp 1s ease-out';
+            }
+        });
+
+        // Add slide-in animation
+        const slideInCSS = `
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        
+        const slideStyle = document.createElement('style');
+        slideStyle.textContent = slideInCSS;
+        document.head.appendChild(slideStyle);
+    </script>
+</body>
+</html>
